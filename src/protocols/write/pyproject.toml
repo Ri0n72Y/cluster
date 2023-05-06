@@ -1,0 +1,17 @@
+[build-system]
+requires = ["time", "hashlib", "typing"]
+build-backend = "protocals.build"
+
+[project]
+name = "write"
+version = "0.0.1"
+authors = [
+    { name="Ziyu Tao", email="ziyu.tao@outlook.com" },
+]
+description = "a base write file protocal function"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
