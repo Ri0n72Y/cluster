@@ -170,7 +170,10 @@ def write_crypto(path: str, feature: Hashkey, author: Hashkey, content: str, pub
         The result of the write operation.
     """
     crypto = rsa.encrypt(content.encode(), pub_key)
-    return write(path, feature, author, crypto)
+    with open(path, 'a') as f:
+        record = RecordBuilder(feature)(author).append_body(content).complete()
+        f.write(rsa.sign(record.encode(), privkey, "SHA-256"))
+        return record.meta.key
 
 def write_stream(path: str, feature: Hashkey, author: Hashkey):
     """
