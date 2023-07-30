@@ -4,6 +4,7 @@
 # @Author  : Ziyu Tao
 
 import time
+import rsa
 from hashlib import md5
 from typing import NewType, Self, Final, Callable
 
@@ -154,6 +155,22 @@ def write(path: str, feature: Hashkey, author: Hashkey, content: str):
         f.write(record.result())
         return record.meta.key
 
+def write_crypto(path: str, feature: Hashkey, author: Hashkey, content: str, pub_key: string):
+    """
+    Encrypts the content using the given public key and writes the encrypted data to the specified file.
+
+    Parameters:
+        path (str): The path to the file to write the encrypted data to.
+        feature (Hashkey): The hash key for the feature.
+        author (Hashkey): The hash key for the author.
+        content (str): The content to be encrypted.
+        pub_key (string): The public key used for encryption.
+
+    Returns:
+        The result of the write operation.
+    """
+    crypto = rsa.encrypt(content.encode(), pub_key)
+    return write(path, feature, author, crypto)
 
 def write_stream(path: str, feature: Hashkey, author: Hashkey):
     """
